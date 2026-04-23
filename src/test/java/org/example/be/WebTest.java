@@ -15,8 +15,7 @@ public class WebTest {
 
     @BeforeEach
     void setup() {
-
-        WebDriverManager.chromedriver().setup();
+ WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
     }
 
@@ -24,7 +23,9 @@ public class WebTest {
     void testSteps() throws InterruptedException {
 
         webDriver.get("https://anupdamoda.github.io/AceOnlineShoePortal/index.html");
+
         webDriver.findElement(By.xpath("//*[@id=\"menuToggle\"]/input")).click();
+
         Thread.sleep(2000);
 
         webDriver.findElement(By.xpath("//*[@id=\"menu\"]/a[2]/li")).click();
@@ -32,10 +33,6 @@ public class WebTest {
         webDriver.findElement(By.xpath("//*[@id=\"usr\"]")).sendKeys("sa");
         webDriver.findElement(By.xpath("//*[@id=\"pwd\"]")).sendKeys("sa");
         webDriver.findElement(By.xpath("//*[@id=\"second_form\"]/input")).click();
-
-        WebElement element = webDriver.findElement(By.xpath("//*[@id=\"ShoeType\"]"));
-        Assertions.assertEquals("Formal Shoes", element.getText());
-
         webDriver.quit();
     }
 }

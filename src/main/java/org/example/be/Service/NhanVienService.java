@@ -5,24 +5,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NhanVienService {
-    private List<NhanVien> list = new ArrayList<>();
 
-    public void add(NhanVien nv) {
-        if (nv.getMaNV() == null || nv.getMaNV().isBlank())
-            throw new IllegalArgumentException("Mã không được trống");
-        list.add(nv);
+    private List<NhanVien> listNhanVien = new ArrayList<>();
+
+    public void addNhanVien(NhanVien nv) {
+       if (nv == null) {
+            throw new IllegalArgumentException("Nhan vien khong duoc trong");
+        }
+        listNhanVien.add(nv);
     }
 
-    public void update(NhanVien nv, String maMoi, String tenMoi, int tuoiMoi, float luongMoi, int soNamMoi, String phongMoi) {
-        if (tenMoi == null || tenMoi.isBlank())
-            throw new IllegalArgumentException("Tên không được trống");
-        if (tuoiMoi < 18 || tuoiMoi > 60)
-            throw new IllegalArgumentException("Tuổi không hợp lệ");
+    public void updateNhanVien(NhanVien nv) {
 
-        nv.setTen(tenMoi);
-        nv.setTuoi(tuoiMoi);
-        nv.setLuong(luongMoi);
-        nv.setSoNamLamViec(soNamMoi);
-        nv.setPhongBan(phongMoi);
+        if (nv == null) {
+            throw new IllegalArgumentException("Nhan vien khong duoc trong");
+        }
+
+        if (nv.getTen() == null || nv.getTen().trim().isEmpty()) {
+            throw new IllegalArgumentException("ten khong duoc de trong");
+        }
+
+        for (int i = 0; i < listNhanVien.size(); i++) {
+            if (listNhanVien.get(i).getMaNV().equals(nv.getMaNV())) {
+                listNhanVien.set(i, nv);
+                return;
+            }
+        }
+    }
+
+    public List<NhanVien> getAll() {
+        return listNhanVien;
+    }
+
+    public NhanVien getByMa(String ma) {
+        return listNhanVien.stream()
+                .filter(nv -> nv.getMaNV().equals(ma))
+                .findFirst()
+                .orElse(null);
     }
 }
